@@ -73,6 +73,7 @@
             <button id="loadBtn">Load Code</button>
             <input type="text" id="saveUrl" placeholder="Enter URL to save code">
             <button id="saveBtn">Save Code</button>
+            <button id="runBtn">Run Code</button>
         </div>
         <div id="monaco-editor"></div>
         <div id="response-container">
@@ -145,6 +146,18 @@
 
                 const data = await response.json();
                 showResponse(data);
+            } catch (error) {
+                showResponse({ error: error.message });
+            }
+        });
+
+        // Run code
+        document.getElementById('runBtn').addEventListener('click', () => {
+            try {
+                const code = editor.getValue();
+                const fn = new Function(code);
+                const result = fn();
+                showResponse({ result: result });
             } catch (error) {
                 showResponse({ error: error.message });
             }
