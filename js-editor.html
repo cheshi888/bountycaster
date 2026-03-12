@@ -84,13 +84,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs/loader.js"></script>
     <script>
         require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs' }});
-        window.MonacoEnvironment = { getWorkerUrl: () => proxy };
         let proxy = URL.createObjectURL(new Blob([`
             self.MonacoEnvironment = {
                 baseUrl: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/'
             };
             importScripts('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs/base/worker/workerMain.js');
         `], { type: 'text/javascript' }));
+        window.MonacoEnvironment = { getWorkerUrl: () => proxy };
 
         let editor;
 
